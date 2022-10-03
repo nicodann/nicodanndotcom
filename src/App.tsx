@@ -1,25 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+    //
+      <div
+        className="App"
+      >
+        <header id='main-app-heading'>
+          Nico Dann drums
+        </header>
+        <iframe
+          title='calendar'
+          src={"https://calendar.google.com/calendar/embed?height=200&wkst=1&bgcolor=black&ctz=America%2FToronto&showTitle=0&showNav=0&showDate=0&showPrint=0&showTabs=0&showTz=0&mode=AGENDA&showCalendars=0&src=bmljb2Rhbm5kcnVtc0BnbWFpbC5jb20&color=%237986CB"} 
+          style={{
+            // border:"solid 1px #777"
+            borderWidth:0, 
+            resize: "both", 
+            overflowX: "scroll"
+          }}
+          width="400px" 
+          height="200px" 
+          frameBorder="0" 
+          scrolling="no"
+        ></iframe>
+      </div>
+
+    
   );
 }
 
