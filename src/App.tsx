@@ -20,7 +20,7 @@ function App() {
             overflowX: "scroll"
           }}
           width="400px" 
-          height="200px" 
+          height="400px" 
           frameBorder="0" 
           scrolling="no"
         ></iframe>
