@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { gapi } from "gapi-script";
+import Event from "./Event";
+import '../Styles/Calendar.css';
 
 function Calendar() {
   const calendarID = process.env.REACT_APP_CALENDAR_ID;  
@@ -69,7 +71,7 @@ function Calendar() {
       }
     },[events])
 
-  // console.log("events[0].start:",events[0].start)
+  // events && console.log("events[0].start:",events[0].start)
   
   return (
     <div id="calendar">
@@ -77,35 +79,22 @@ function Calendar() {
       <h3>Upcoming</h3>
       {upcomingEvents?.map(event => {
         return (
-          <div id="event" key={event.id}>
-            <p>{new Date(event.start.dateTime).toDateString()}</p>
-            <p>
-              {event.summary}
-            </p>
-          </div>
+          <Event event={event} key={event.id} />
         )        
       })}
 
-      <h3>Passed</h3>
+      <h3>Past</h3>
       {passedEvents?.map((event, i) => {
           return !displayMore 
-            ? i < 10 && (
-            <div id="event" key={event.id}>
-              <p>{new Date(event.start.dateTime).toDateString()}</p>
-              <p>
-                {event.summary}
-              </p>
-            </div>
-          )
-          : <div id="event" key={event.id}>
-          <p>{new Date(event.start.dateTime).toDateString()}</p>
-          <p>
-            {event.summary}
-          </p>
-        </div>
-
+            ? i < 10 && <Event event={event} key={event.id} />
+            : <Event event={event} key={event.id} />              
       })}
-      <p onClick={() => !displayMore ? setDisplayMore(true) : setDisplayMore(false)}>{!displayMore ? "display more..." : "display less..."}</p>
+      <p
+        className="link"
+        onClick={() => !displayMore ? setDisplayMore(true) : setDisplayMore(false)}        
+      >
+        {!displayMore ? "display more..." : "display less..."}
+      </p>
    </div>
   )
 };
