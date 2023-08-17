@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { gapi } from "gapi-script";
-import Event from "./Event";
 
 function Calendar() {
   const calendarID = process.env.REACT_APP_CALENDAR_ID;  
