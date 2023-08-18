@@ -35,7 +35,7 @@ h3 {
 
 @media (max-width: 1250px) {
   h1 {
-    max-width: 100%;
+    font-size:5em;
   }
 }
 
