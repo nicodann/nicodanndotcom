@@ -11,7 +11,7 @@ function Calendar() {
   const [passedEvents, setPassedEvents] = useState();
   const [displayMore, setDisplayMore] = useState(false);
 
-  const getEvents = (calendarID, apiKey) => {
+  const getEvents = (calendarID:string, apiKey:string) => {
 
     const initiate = () => {
       gapi.client
