@@ -2,16 +2,17 @@ import { useState, useEffect } from "react";
 import { gapi } from "gapi-script";
 import Event from "./Event";
 import '../Styles/Calendar.css';
+import { EventType } from "../types/calendar";
 
 function Calendar() {
   const calendarID = process.env.REACT_APP_CALENDAR_ID;  
   const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-  const [events, setEvents] = useState();
-  const [upcomingEvents, setUpcomingEvents] = useState();
-  const [passedEvents, setPassedEvents] = useState();
+  const [events, setEvents] = useState<EventType[]>();
+  const [upcomingEvents, setUpcomingEvents] = useState<EventType[]>();
+  const [passedEvents, setPassedEvents] = useState<EventType[]>();
   const [displayMore, setDisplayMore] = useState(false);
 
-  const getEvents = (calendarID:string, apiKey:string) => {
+  const getEvents: (calendarID:string, apiKey:string) => void  = (calendarID, apiKey) => {
 
     const initiate = () => {
       gapi.client
@@ -23,7 +24,7 @@ function Calendar() {
         })
         .then(
           (response) => {
-            // console.log("response.result.items:",response.result.items)
+            console.log("response.result.items:",response.result.items[0])
             const serverEvents = response.result.items;
             setEvents(serverEvents);
           },
@@ -33,14 +34,16 @@ function Calendar() {
         )
     }
 
-    gapi.load("client", initiate)
+
+   gapi.load("client", initiate)
 
   };
 
   
   useEffect(() => {
-      const events = getEvents(calendarID, apiKey)
-      setEvents(events)
+      // const events = getEvents(calendarID, apiKey)
+      // setEvents(events)
+      getEvents(calendarID, apiKey)
     },[apiKey, calendarID]);
 
     useEffect(() => {
