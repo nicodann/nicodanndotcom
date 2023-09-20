@@ -85,7 +85,7 @@ function Calendar() {
           <Event event={event} key={event.id} />
         )        
       })}
-
+      <br/>
       <h3>Past</h3>
       {passedEvents?.map((event, i) => {
           return !displayMore 

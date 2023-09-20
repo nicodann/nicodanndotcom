@@ -1,6 +1,8 @@
 import etag from "etag"
 type etagType = typeof etag
 
+
+// COPIED FROM GOOGLE API DOCS AND TYPES SIMPLIFIED
 export interface EventType {
   "kind": "calendar#event",
     "etag": etagType,
