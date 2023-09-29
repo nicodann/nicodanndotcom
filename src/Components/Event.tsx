@@ -14,11 +14,11 @@ export default function Event({event}:{event:event}) {
   console.log("event:", event)
   return (
     <div id="event" key={event.id}>
-      <p>{new Date(event.start.dateTime).toDateString()}</p>
-      <p>
+      <p id="date">{new Date(event.start.dateTime).toDateString()}</p>
+      <p id="summary">
         {event.summary}
       </p>
-      <p>{event.location}</p>
+      <p id="location">{event.location}</p>
     </div>
   )
 }
