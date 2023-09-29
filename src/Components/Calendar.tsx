@@ -2,51 +2,56 @@ import { useState, useEffect } from "react";
 import Event from "./Event";
 import '../Styles/Calendar.scss';
 import { GoogleEventType } from "../types/calendar";
-import { getGoogleEvents } from "../Utils/getGoogleEvents";
-import { useEvents } from "../Hooks/useEvents";
+import { useEvents, useSortedEvents } from "../Hooks/useEvents";
 
 function Calendar() {
-  const calendarID = process.env.REACT_APP_CALENDAR_ID;  
-  const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-  const [events, setEvents] = useState<GoogleEventType[]>();
+  // const calendarID = process.env.REACT_APP_CALENDAR_ID;  
+  // const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+  // const [events, setEvents] = useState<GoogleEventType[]>();
   const [upcomingEvents, setUpcomingEvents] = useState<GoogleEventType[]>();
   const [passedEvents, setPassedEvents] = useState<GoogleEventType[]>();
   const [displayMore, setDisplayMore] = useState(false);
-
+ 
   
+  // useEffect(() => {
+  //     getGoogleEvents(calendarID, apiKey, setEvents)
+  //   },[apiKey, calendarID]);
+
+  const events = useEvents()
+
+  // events && console.log("events:",events[0].start.dateTime)
+
+  const sortedEvents = useSortedEvents()
+
+  sortedEvents && console.log("sortedEvents:",sortedEvents)
+
   useEffect(() => {
-      getGoogleEvents(calendarID, apiKey, setEvents)
-    },[apiKey, calendarID]);
+    if (events) {
+      const upcomingEvents = events.filter(event => new Date(event.start.dateTime) > new Date() )
+      upcomingEvents.sort((a,b) => {
+        if (new Date(a.start.dateTime) > new Date(b.start.dateTime)) {
+          return 1
+        } else {
+          return -1
+        }          
+      })
+      setUpcomingEvents(upcomingEvents)
+    }
+  },[events])
 
-    useEffect(() => {
-      if (events) {
-        const upcomingEvents = events.filter(event => new Date(event.start.dateTime) > new Date() )
-        upcomingEvents.sort((a,b) => {
-          if (new Date(a.start.dateTime) > new Date(b.start.dateTime)) {
-            return 1
-          } else {
-            return -1
-          }          
-        })
-        setUpcomingEvents(upcomingEvents)
-      }
-    },[events])
-
-    useEffect(() => {
-      if (events) {
-        const passedEvents = events.filter(event => new Date(event.start.dateTime) < new Date() )
-        passedEvents.sort((a,b) => {
-          if (new Date(a.start.dateTime) > new Date(b.start.dateTime)) {
-            return -1
-          } else {
-            return 1
-          }          
-        })
-        setPassedEvents(passedEvents)
-      }
-    },[events])
-
-  console.log("useEvents:",useEvents())
+  useEffect(() => {
+    if (events) {
+      const passedEvents = events.filter(event => new Date(event.start.dateTime) < new Date() )
+      passedEvents.sort((a,b) => {
+        if (new Date(a.start.dateTime) > new Date(b.start.dateTime)) {
+          return -1
+        } else {
+          return 1
+        }          
+      })
+      setPassedEvents(passedEvents)
+    }
+  },[events])
   
   return (
     <div id="calendar">
