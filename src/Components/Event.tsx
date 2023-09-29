@@ -11,7 +11,6 @@ type event = {
 }
 
 export default function Event({event}:{event:event}) {
-  console.log("event:", event)
   return (
     <div id="event" key={event.id}>
       <p id="date">{new Date(event.start.dateTime).toDateString()}</p>

@@ -1,20 +1,21 @@
 import { useState, useEffect } from "react";
 import Event from "./Event";
 import '../Styles/Calendar.scss';
-import { EventType } from "../types/calendar";
-import { getEvents } from "../Utils/getEvents";
+import { GoogleEventType } from "../types/calendar";
+import { getGoogleEvents } from "../Utils/getGoogleEvents";
+import { useEvents } from "../Hooks/useEvents";
 
 function Calendar() {
   const calendarID = process.env.REACT_APP_CALENDAR_ID;  
   const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-  const [events, setEvents] = useState<EventType[]>();
-  const [upcomingEvents, setUpcomingEvents] = useState<EventType[]>();
-  const [passedEvents, setPassedEvents] = useState<EventType[]>();
+  const [events, setEvents] = useState<GoogleEventType[]>();
+  const [upcomingEvents, setUpcomingEvents] = useState<GoogleEventType[]>();
+  const [passedEvents, setPassedEvents] = useState<GoogleEventType[]>();
   const [displayMore, setDisplayMore] = useState(false);
 
   
   useEffect(() => {
-      getEvents(calendarID, apiKey, setEvents)
+      getGoogleEvents(calendarID, apiKey, setEvents)
     },[apiKey, calendarID]);
 
     useEffect(() => {
@@ -45,7 +46,7 @@ function Calendar() {
       }
     },[events])
 
-  // events && console.log("events[0].start:",events[0].start)
+  console.log("useEvents:",useEvents())
   
   return (
     <div id="calendar">

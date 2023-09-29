@@ -1,13 +1,13 @@
-import { EventType } from "../types/calendar";
+import { GoogleEventType } from "../types/calendar";
 import { gapi } from "gapi-script";
 
 type getEventsType = (
   calendarID:string, 
   apiKey:string, 
-  setEvents: (serverEvents:EventType[]) => void
+  setEvents: (serverEvents:GoogleEventType[]) => void
 ) => void
 
-export const getEvents: getEventsType = (calendarID, apiKey, setEvents) => {
+export const getGoogleEvents: getEventsType = (calendarID, apiKey, setEvents) => {
 
   const initiate = () => {
     gapi.client
