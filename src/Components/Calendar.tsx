@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { gapi } from "gapi-script";
 import Event from "./Event";
-import '../Styles/Calendar.css';
+import '../Styles/Calendar.scss';
 import { EventType } from "../types/calendar";
 
 function Calendar() {
