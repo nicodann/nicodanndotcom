@@ -21,9 +21,9 @@ function Calendar() {
 
   // events && console.log("events:",events[0].start.dateTime)
 
-  const sortedEvents = useSortedEvents()
+  // const sortedEvents = useSortedEvents()
 
-  sortedEvents && console.log("sortedEvents:",sortedEvents)
+  // sortedEvents && console.log("sortedEvents:",sortedEvents)
 
   useEffect(() => {
     if (events) {
