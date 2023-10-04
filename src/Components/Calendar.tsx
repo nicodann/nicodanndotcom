@@ -3,6 +3,7 @@ import Event from "./Event";
 import '../Styles/Calendar.scss';
 import { GoogleEventType } from "../types/calendar";
 import { useEvents } from "../Hooks/useEvents";
+import { useSortedEvents } from "../Hooks/useSortedEvents";
 
 function Calendar() {
   // const calendarID = process.env.REACT_APP_CALENDAR_ID;  
@@ -15,6 +16,8 @@ function Calendar() {
   const [displayMore, setDisplayMore] = useState(false);
 
   const events = useEvents()
+
+  useSortedEvents();
 
   useEffect(() => {
     if (events) {
