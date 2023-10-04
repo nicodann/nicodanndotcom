@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import Calendar from './Components/Calendar';
 
 export default function App() {
@@ -7,7 +7,10 @@ export default function App() {
         className="App"
       >
         <header id='main-app-heading'>
-          <h1>Nico Dann drums</h1>
+          <div className="relatively-positioned-container">
+            {/* <div id="floating-circle"/> */}
+            <h1>Nico Dann drums</h1>
+          </div>
         </header>
         <Calendar />
       </div> 
