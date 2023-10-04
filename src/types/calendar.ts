@@ -3,7 +3,7 @@ type etagType = typeof etag
 
 
 // COPIED FROM GOOGLE API DOCS AND TYPES SIMPLIFIED
-export interface EventType {
+export interface GoogleEventType {
   "kind": "calendar#event",
     "etag": etagType,
     "id": string,

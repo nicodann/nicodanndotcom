@@ -1,80 +1,57 @@
 import { useState, useEffect } from "react";
-import { gapi } from "gapi-script";
 import Event from "./Event";
 import '../Styles/Calendar.scss';
-import { EventType } from "../types/calendar";
+import { GoogleEventType } from "../types/calendar";
+import { useEvents, useSortedEvents } from "../Hooks/useEvents";
 
 function Calendar() {
-  const calendarID = process.env.REACT_APP_CALENDAR_ID;  
-  const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-  const [events, setEvents] = useState<EventType[]>();
-  const [upcomingEvents, setUpcomingEvents] = useState<EventType[]>();
-  const [passedEvents, setPassedEvents] = useState<EventType[]>();
+  // const calendarID = process.env.REACT_APP_CALENDAR_ID;  
+  // const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+  // const [events, setEvents] = useState<GoogleEventType[]>();
+  const [upcomingEvents, setUpcomingEvents] = useState<GoogleEventType[]>();
+  const [passedEvents, setPassedEvents] = useState<GoogleEventType[]>();
   const [displayMore, setDisplayMore] = useState(false);
-
-  const getEvents: (calendarID:string, apiKey:string) => void  = (calendarID, apiKey) => {
-
-    const initiate = () => {
-      gapi.client
-        .init({apiKey: apiKey})
-        .then(() => {
-          return gapi.client.request({
-            path: `https://www.googleapis.com/calendar/v3/calendars/${calendarID}/events`
-          })
-        })
-        .then(
-          (response) => {
-            console.log("response.result.items:",response.result.items[0])
-            const serverEvents = response.result.items;
-            setEvents(serverEvents);
-          },
-          err => {
-            return [false, err]
-          }
-        )
-    }
-
-
-   gapi.load("client", initiate)
-
-  };
-
+ 
   
+  // useEffect(() => {
+  //     getGoogleEvents(calendarID, apiKey, setEvents)
+  //   },[apiKey, calendarID]);
+
+  const events = useEvents()
+
+  // events && console.log("events:",events[0].start.dateTime)
+
+  const sortedEvents = useSortedEvents()
+
+  sortedEvents && console.log("sortedEvents:",sortedEvents)
+
   useEffect(() => {
-      // const events = getEvents(calendarID, apiKey)
-      // setEvents(events)
-      getEvents(calendarID, apiKey)
-    },[apiKey, calendarID]);
+    if (events) {
+      const upcomingEvents = events.filter(event => new Date(event.start.dateTime) > new Date() )
+      upcomingEvents.sort((a,b) => {
+        if (new Date(a.start.dateTime) > new Date(b.start.dateTime)) {
+          return 1
+        } else {
+          return -1
+        }          
+      })
+      setUpcomingEvents(upcomingEvents)
+    }
+  },[events])
 
-    useEffect(() => {
-      if (events) {
-        const upcomingEvents = events.filter(event => new Date(event.start.dateTime) > new Date() )
-        upcomingEvents.sort((a,b) => {
-          if (new Date(a.start.dateTime) > new Date(b.start.dateTime)) {
-            return 1
-          } else {
-            return -1
-          }          
-        })
-        setUpcomingEvents(upcomingEvents)
-      }
-    },[events])
-
-    useEffect(() => {
-      if (events) {
-        const passedEvents = events.filter(event => new Date(event.start.dateTime) < new Date() )
-        passedEvents.sort((a,b) => {
-          if (new Date(a.start.dateTime) > new Date(b.start.dateTime)) {
-            return -1
-          } else {
-            return 1
-          }          
-        })
-        setPassedEvents(passedEvents)
-      }
-    },[events])
-
-  // events && console.log("events[0].start:",events[0].start)
+  useEffect(() => {
+    if (events) {
+      const passedEvents = events.filter(event => new Date(event.start.dateTime) < new Date() )
+      passedEvents.sort((a,b) => {
+        if (new Date(a.start.dateTime) > new Date(b.start.dateTime)) {
+          return -1
+        } else {
+          return 1
+        }          
+      })
+      setPassedEvents(passedEvents)
+    }
+  },[events])
   
   return (
     <div id="calendar">

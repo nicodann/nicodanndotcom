@@ -1,3 +1,17 @@
+#calendar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    color:peru;
+  }
+
+  h3 {
+    color:red;
+  }
+}
+
 #event {
   display:flex;
   flex-direction: column;
