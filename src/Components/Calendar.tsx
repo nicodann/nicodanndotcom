@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Event from "./Event";
 import '../Styles/Calendar.scss';
 import { GoogleEventType } from "../types/calendar";
-import { useEvents, useSortedEvents } from "../Hooks/useEvents";
+import { useEvents } from "../Hooks/useEvents";
 
 function Calendar() {
   // const calendarID = process.env.REACT_APP_CALENDAR_ID;  
@@ -10,20 +10,11 @@ function Calendar() {
   // const [events, setEvents] = useState<GoogleEventType[]>();
   const [upcomingEvents, setUpcomingEvents] = useState<GoogleEventType[]>();
   const [passedEvents, setPassedEvents] = useState<GoogleEventType[]>();
+  const [upcomingYears, setUpcomingYears] = useState<number[]>([]);
+  const [passedYears, setPassedYears] = useState<number[]>([]);
   const [displayMore, setDisplayMore] = useState(false);
- 
-  
-  // useEffect(() => {
-  //     getGoogleEvents(calendarID, apiKey, setEvents)
-  //   },[apiKey, calendarID]);
 
   const events = useEvents()
-
-  // events && console.log("events:",events[0].start.dateTime)
-
-  // const sortedEvents = useSortedEvents()
-
-  // sortedEvents && console.log("sortedEvents:",sortedEvents)
 
   useEffect(() => {
     if (events) {
@@ -52,18 +43,56 @@ function Calendar() {
       setPassedEvents(passedEvents)
     }
   },[events])
+
+  const getYears = (eventArray:GoogleEventType[]) => {
+    const years: number[] = [];
+    eventArray.map(event => {
+      const eventYear = new Date(event.start.dateTime).getFullYear();
+      !years.includes(eventYear) && years.push(eventYear)
+    })
+    return years;
+  }
+
+  useEffect(() => {
+    upcomingEvents && setUpcomingYears(getYears(upcomingEvents))
+  }, [upcomingEvents]);
+
+  useEffect(() => {
+    passedEvents && setPassedYears(getYears(passedEvents))
+  }, [passedEvents]);
+
+  
   
   return (
     <div id="calendar">
       <h2>Calendar</h2>
       <h3>Upcoming</h3>
-      {upcomingEvents?.map(event => {
-        return (
-          <Event event={event} key={event.id} />
-        )        
-      })}
+      {upcomingYears.map((year,i) => (
+        <div id="year-box" key={i}>
+          <h4>
+            {year}
+          </h4>
+          {upcomingEvents?.map(event => {
+            return new Date(event.start.dateTime).getFullYear() === year && (
+              <Event event={event} key={event.id} />
+            )        
+          })}
+        </div>)
+      )}
       <br/>
       <h3>Past</h3>
+      {passedYears.map((year,i) => (
+        <div id="year-box" key={i}>
+        <h4>
+          {year}
+        </h4>
+        {passedEvents?.map(event => {
+          return new Date(event.start.dateTime).getFullYear() === year && (
+            <Event event={event} key={event.id} />
+          )        
+        })}
+      </div>
+      ))}
       {passedEvents?.map((event, i) => {
           return !displayMore 
             ? i < 10 && <Event event={event} key={event.id} />
