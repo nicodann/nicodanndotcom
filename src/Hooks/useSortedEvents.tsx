@@ -10,25 +10,8 @@ export const useSortedEvents = () => {
   const [upcomingYears, setUpcomingYears] = useState<number[]>([]);
   const [passedYears, setPassedYears] = useState<number[]>([]);
 
-  // useEffect(() => {
-  //   console.log("upcomingEvents:",upcomingEvents)
-  // }, [upcomingEvents]);
-
-  // useEffect(() => {
-  //   console.log("passedEvents:",passedEvents)
-  // }, [passedEvents]);
-
-  // useEffect(() => {
-  //   console.log("upcomingYears:",upcomingYears)
-  // }, [upcomingYears]);
-
-  // useEffect(() => {
-  //   console.log("passedYears:",passedYears)
-  // }, [passedYears]);
-
   useEffect(() => {
     if (events) {
-      console.log("events:",events)
       const upcomingEvents = events.filter(event => new Date(event.start.dateTime) > new Date() )
       upcomingEvents.sort((a,b) => {
         if (new Date(a.start.dateTime) > new Date(b.start.dateTime)) {
