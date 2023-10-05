@@ -19,7 +19,7 @@ export const getGoogleEvents: getEventsType = (calendarID, apiKey, setEvents) =>
       })
       .then(
         (response) => {
-          console.log("response.result.items:",response.result.items[0])
+          // console.log("response.result.items:",response.result.items[0])
           const serverEvents = response.result.items;
           setEvents(serverEvents);
         },

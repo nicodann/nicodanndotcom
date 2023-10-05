@@ -16,8 +16,9 @@ function Calendar() {
   const [displayMore, setDisplayMore] = useState(false);
 
   const events = useEvents()
+  const sortedEvents = useSortedEvents();
 
-  useSortedEvents();
+  console.log("sortedEvents", sortedEvents)
 
   useEffect(() => {
     if (events) {
