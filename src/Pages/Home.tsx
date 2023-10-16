@@ -9,7 +9,6 @@ export default function Home() {
       >
         <header id='main-app-heading'>
           <div className="relatively-positioned-container">
-            {/* <div id="floating-circle"/> */}
             <h1>Nico Dann drums</h1>
           </div>
         </header>
