@@ -1,4 +1,4 @@
-import './App.scss';
+import '../App.scss';
 import Calendar from "../Components/Calendar";
 
 
