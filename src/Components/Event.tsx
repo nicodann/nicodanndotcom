@@ -28,6 +28,7 @@ export default function Event({event}:{event:event}) {
   return (
     <div id="event" key={event.id}>
       <p id="date">{new Date(event.start.dateTime).toDateString()}</p>
+      {/* <p id="time">{new Date(event.start.dateTime).toLocaleTimeString("en-US",{fractionalSecondDigits:undefined})}</p> */}
       <p id="summary">
         {addHyperlinks(event.summary)}
       </p>
