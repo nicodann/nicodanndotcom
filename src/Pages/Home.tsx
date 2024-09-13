@@ -31,6 +31,7 @@ export default function Home() {
       {columnNumber === 2 &&
         <div id="right_side_column">
           <Bio />
+          <img src="/images/nico_headshot.jpg" alt="Nico Dann jazz drums" />
         </div>
       }
     </div>

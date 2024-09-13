@@ -6,6 +6,8 @@ a {
   color:lightyellow
 }
 
+
+
 .text_button {
   font-style: italic;
   display:inline;
@@ -54,7 +56,7 @@ a {
 }
 
 #bio_wrap {
-  margin: 3em 2em 2em 2em;
+  
 }
 
 .animated_height {
@@ -69,6 +71,16 @@ a {
 
 .expanded {
   max-height: 2000px;
+}
+
+#right_side_column {
+  display: flex;
+  flex-direction: column;
+  padding: 3em 2em 2em 2em;
+  gap: 4em
+}
+img {
+  width: 100%;
 }
 
 // #bio_wrap::before {
