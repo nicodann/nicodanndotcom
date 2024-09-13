@@ -1,8 +1,13 @@
 import Markdown from "react-markdown";
-import bio from '../docs/bio.md'
+import bioSource from '../docs/bio.md'
+import { useState } from "react";
 
 export default function Bio() {
+  const [bio, setBio] = useState<string>()
+  fetch(bioSource)
+    .then(response => response.text())
+    .then(text => setBio(text))
   return (
-    <div>Bio</div>
+    <Markdown>{bio}</Markdown>
   )
 }
