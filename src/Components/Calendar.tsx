@@ -15,9 +15,10 @@ function Calendar() {
   
   return (
     <div id="calendar">
-      <h2>Calendar</h2>
-      <h3>Upcoming</h3>
-      {upcomingYears.map((year,i) => (
+      {/* <h2>Calendar</h2> */}
+      <h3>Upcoming Gigs</h3>
+      {upcomingYears.length !== 0 ?
+      upcomingYears.map((year,i) => (
         <div id="year-box" key={i}>
           <h4>
             {year}
@@ -28,9 +29,13 @@ function Calendar() {
             )        
           })}
         </div>)
-      )}
+      ) :
+      <p style={{fontStyle: "italic"}}>
+        Check back soon or join the mailing list!
+      </p>
+      }
       <br/>
-      <h3>Past</h3>
+      <h3>Past Performances</h3>
       {passedYears.map((year,i) => (
         <div id="year-box" key={i}>
         <h4>
