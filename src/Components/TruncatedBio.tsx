@@ -37,7 +37,7 @@ export default function TruncatedBio() {
 
   return (
     <div 
-      id="bio_wrap"
+      id="truncated_bio_wrap"
       className={`
         animated_height 
         ${isBioTruncated ? "truncated" : "expanded"}
