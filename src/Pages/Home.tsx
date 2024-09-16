@@ -1,14 +1,13 @@
 import '../App.scss';
 import TruncatedBio from '../Components/TruncatedBio';
-import Calendar from "../Components/Calendar";
 import useWindowDimensions from '../Hooks/useWindowWidth';
 import { useEffect, useState } from 'react';
 import Bio from '../Components/Bio';
+import Calendar from '../Components/Calendar';
 
 
 export default function Home() {
   const windowSize = useWindowDimensions();
-  console.log("windowSize:",windowSize)
   const [columnNumber, setColumnNumber] = useState<number>()
   useEffect(() => {
     if (windowSize === 'base' || windowSize === 'sm') {

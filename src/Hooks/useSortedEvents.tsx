@@ -5,11 +5,14 @@ import { GoogleEventType } from '../types/calendar';
 export const useSortedEvents = () => {
   const events = useEvents();
 
-  const [upcomingEvents, setUpcomingEvents] = useState<GoogleEventType[]>();
-  const [passedEvents, setPassedEvents] = useState<GoogleEventType[]>();
+  const [upcomingEvents, setUpcomingEvents] = useState<GoogleEventType[]>([]);
+  const [passedEvents, setPassedEvents] = useState<GoogleEventType[]>([]);
   const [upcomingYears, setUpcomingYears] = useState<number[]>([]);
   const [passedYears, setPassedYears] = useState<number[]>([]);
+  const [pastEventDisplayLimit, setPastEventDisplayLimit] = useState(10);
 
+  
+  // SET UPCOMING EVENTS
   useEffect(() => {
     if (events) {
       const upcomingEvents = events.filter(event => new Date(event.start.dateTime) > new Date() )
@@ -24,9 +27,12 @@ export const useSortedEvents = () => {
     }
   },[events])
 
+  // SET PAST EVENTS
   useEffect(() => {
     if (events) {
+      // Filter out passed events from complete list
       const passedEvents = events.filter(event => new Date(event.start.dateTime) < new Date() )
+      // sort events, most recent first
       passedEvents.sort((a,b) => {
         if (new Date(a.start.dateTime) > new Date(b.start.dateTime)) {
           return -1
@@ -34,10 +40,14 @@ export const useSortedEvents = () => {
           return 1
         }          
       })
-      setPassedEvents(passedEvents)
+      const paginatedEvents = passedEvents.slice(0, pastEventDisplayLimit)
+      console.log(paginatedEvents)
+      setPassedEvents(paginatedEvents)
     }
-  },[events])
+  },[events, pastEventDisplayLimit])
 
+
+  // FUNCTION TO EXTRACT YEARS FROM EVENT LIST
   const getYears = (eventArray:GoogleEventType[]) => {
     const years: number[] = [];
     eventArray.map(event => {
@@ -47,10 +57,13 @@ export const useSortedEvents = () => {
     return years;
   }
 
+  // SETS YEARS FOR UPCOMING EVENTS
   useEffect(() => {
     upcomingEvents && setUpcomingYears(getYears(upcomingEvents))
   }, [upcomingEvents]);
 
+  
+  // SETS YEARS FOR PAST EVENTS
   useEffect(() => {
     passedEvents && setPassedYears(getYears(passedEvents))
   }, [passedEvents]);
@@ -59,6 +72,7 @@ export const useSortedEvents = () => {
     upcomingEvents: upcomingEvents,
     passedEvents: passedEvents,
     upcomingYears: upcomingYears,
-    passedYears: passedYears
+    passedYears: passedYears,
+    setPastEventDisplayLimit: setPastEventDisplayLimit,
   }
 }
