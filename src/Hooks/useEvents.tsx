@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react'
-import { getGoogleEvents } from '../Utils/getGoogleEvents';
+import { getGoogleEvents } from '../api/getGoogleEvents';
 import { GoogleEventType } from '../types/calendar';
 
 export const useEvents = () => {

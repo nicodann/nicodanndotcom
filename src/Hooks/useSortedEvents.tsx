@@ -11,6 +11,10 @@ export const useSortedEvents = () => {
   const [passedYears, setPassedYears] = useState<number[]>([]);
   const [pastEventDisplayLimit, setPastEventDisplayLimit] = useState(10);
 
+  useEffect(() => {
+    console.log("passedEvents", passedEvents)
+  }, [passedEvents]);
+
   
   // SET UPCOMING EVENTS
   useEffect(() => {
