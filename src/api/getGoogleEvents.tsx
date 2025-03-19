@@ -1,19 +1,19 @@
-import { eventsStateType, EventWithStartTimeAndSummary } from "../types/calendarTypes";
+import sortEvents from "../lib/sortEvents";
+import { eventsStateType } from "../types/calendarTypes";
 import { gapi } from "gapi-script";
-// import {google} from "googleapis";
-// const calendar = google.calendar("v3");
-// import { getGoogleEventInstances } from "./getGoogleEventInstances";
 
 type getEventsType = (
   calendarID:string, 
   apiKey:string, 
-  setEvents: React.Dispatch<React.SetStateAction<eventsStateType>>
+  setEvents: React.Dispatch<React.SetStateAction<eventsStateType>>,
+  pastEventsDisplayLimit: number
 ) => void;
 
 export const getGoogleEvents: getEventsType = (
   calendarID, 
   apiKey, 
-  setEvents
+  setEvents,
+  pastEventsDisplayLimit
 ) => { 
   gapi.load("client", () => {
   gapi.client.init({apiKey: apiKey});
@@ -27,7 +27,7 @@ export const getGoogleEvents: getEventsType = (
         timeMin: new Date(0).toISOString() // Include all events, past and future
       }).then((response) => {
         console.log("response:", response.result.items); 
-        response.result.items && setEvents(sortEvents(response.result.items))
+        response.result.items && setEvents(sortEvents(response.result.items, pastEventsDisplayLimit))
       });
     })
     .catch((error) => {
@@ -35,74 +35,3 @@ export const getGoogleEvents: getEventsType = (
     });
   })
 }
-
-function hasDateTimeAndSummary(event: gapi.client.calendar.Event): event is EventWithStartTimeAndSummary {
-  return (event as EventWithStartTimeAndSummary).start?.dateTime !== undefined && (event as EventWithStartTimeAndSummary).summary !== undefined
-}
-
-const sortEvents = (events: gapi.client.calendar.Event[]) => {
-
-  const upcomingEvents: EventWithStartTimeAndSummary[] = [];
-  const passedEvents: EventWithStartTimeAndSummary[] =[]
-  for (const event of events) {
-    if (hasDateTimeAndSummary(event)) {
-      if (new Date(event.start.dateTime) > new Date()) {
-        upcomingEvents.push(event)
-      } else {
-        passedEvents.push(event)
-      }
-    }
-  }
-  
-  // FUNCTION TO EXTRACT YEARS FROM EVENT LIST
-  const getYears = (eventArray:EventWithStartTimeAndSummary[]) => {
-    const years: number[] = [];
-    eventArray.forEach(event => {
-      if (event.start?.dateTime) {
-        const eventYear = new Date(event.start.dateTime).getFullYear();
-        !years.includes(eventYear) && years.push(eventYear)
-      }
-    })
-    return years;
-  }
-
-  upcomingEvents.sort((a,b) => {
-    if (a.start?.dateTime && b.start?.dateTime && new Date(a.start.dateTime) > new Date(b.start.dateTime)) {
-      return 1
-    } else {
-      return -1
-    }          
-  })
-
-  // sort events, most recent first
-  passedEvents.sort((a,b) => {
-    if (a.start?.dateTime && b.start?.dateTime && new Date(a.start.dateTime) > new Date(b.start.dateTime)) {
-      return -1
-    } else {
-      return 1
-    }          
-  })
-  
-  const upcomingYears = getYears(upcomingEvents)
-  
-  const passedYears = getYears(passedEvents)
-  
-  return { upcomingEvents, passedEvents, upcomingYears, passedYears }
-}
-//   events
-//     .filter(event =>  event.start && event.start.dateTime && new Date(event.start.dateTime) > new Date() )
-    
-
-// }
-
-
-// events
-//   .filter(event => event.start?.dateTime && new Date(event.start.dateTime) < new Date() )
-// // sort events, most recent first
-//   .sort((a,b) => {
-//   if (a.start?.dateTime && b.start?.dateTime && new Date(a.start.dateTime) > new Date(b.start.dateTime)) {
-//     return -1
-//   } else {
-//     return 1
-//   }          
-// })

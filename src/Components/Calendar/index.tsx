@@ -6,14 +6,15 @@ import { useEffect, useState } from 'react';
 
 function Calendar() {
 
+  const [pastEventDisplayLimit, setPastEventDisplayLimit] = useState(10);
+
   const {
     upcomingEvents,
     passedEvents,
     upcomingYears,
     passedYears, 
-  } = useEvents(); 
+  } = useEvents(pastEventDisplayLimit); 
 
-  const [pastEventDisplayLimit, setPastEventDisplayLimit] = useState(10);
 
   useEffect(() => {
     console.log("upcomingEvents",upcomingEvents)
@@ -34,9 +35,9 @@ function Calendar() {
         </p>
       }
       <h3>Past Performances</h3>
-      {passedYears.length !== 0 && passedEvents ?
+      {/* {passedYears.length !== 0 && passedEvents ? */}
         <YearBlock events={passedEvents} years={passedYears} />
-        :
+        
         <p
           className="link"
           onClick={() => setPastEventDisplayLimit(prev => prev + 10)} 
@@ -44,7 +45,7 @@ function Calendar() {
         >
           display more...
         </p>
-      }
+      {/* } */}
    </div>
   )
 };
