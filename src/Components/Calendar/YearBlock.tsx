@@ -1,8 +1,8 @@
-import { GoogleEventType } from "../../types/calendar";
+import { EventWithStartTimeAndSummary } from "../../types/calendarTypes";
 import Event from "./Event";
 
 type YearBlockProps = {
-  events: GoogleEventType[];
+  events: EventWithStartTimeAndSummary[];
   years: number[];
 }
 
@@ -15,10 +15,8 @@ export default function YearBlock(props: YearBlockProps) {
           <h4>
             {year}
           </h4>
-          {events.map(event => {
-            return new Date(event.start.dateTime).getFullYear() === year && (
-              <Event event={event} key={event.id} />
-            )        
+          {events.map(event => {            
+            return new Date(event.start.dateTime).getFullYear() === year && <Event event={event} key={event.id} />               
           })}
         </div>
         )

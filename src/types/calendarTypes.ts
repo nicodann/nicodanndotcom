@@ -1,6 +1,19 @@
 import etag from "etag"
 type etagType = typeof etag
 
+export interface EventWithStartTimeAndSummary extends gapi.client.calendar.Event {
+  start: {dateTime: string};
+  summary: string;
+}
+
+export interface eventsStateType {
+  passedEvents: EventWithStartTimeAndSummary[],
+  upcomingEvents: EventWithStartTimeAndSummary[], 
+  upcomingYears: number[]
+  passedYears: number[],
+}
+
+
 
 // COPIED FROM GOOGLE API DOCS AND TYPES SIMPLIFIED
 export interface GoogleEventType {

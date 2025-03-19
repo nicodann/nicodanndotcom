@@ -1,14 +1,20 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
+import { EventWithStartTimeAndSummary } from "../../types/calendarTypes";
 
-type event = {
-  id: string;
-  start: {
-    dateTime: string;
-    timeZone: string;
-  }
-  summary: string;
-  location:string;
-}
+// type event = {
+//   id: string;
+//   start: {
+//     dateTime: string;
+//     timeZone: string;
+//   }
+//   summary: string;
+//   location:string;
+// }
+
+// interface EventWithStartTimeAndSummary extends gapi.client.calendar.Event {
+//   start: {dateTime: string};
+//   summary: string;
+// }
 
 const keywords: {[key:string]:string} = {
   'Tania Gill Quartet': "https://taniagill.bandcamp.com/"
@@ -24,7 +30,7 @@ const addHyperlinks = (text: string) => {
   return returnedText;
 }
 
-export default function Event({event}:{event:event}) {
+export default function Event({event}:{event: EventWithStartTimeAndSummary}) {
   return (
     <div id="event" key={event.id}>
       <p id="date">{new Date(event.start.dateTime).toDateString()}</p>
