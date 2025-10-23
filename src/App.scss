@@ -10,7 +10,10 @@ h1, h2, h3, h4, h5 {
   font-family: 'Lora';
 }
 
-
+button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
 
 .text_button {
   font-style: italic;
@@ -19,6 +22,7 @@ h1, h2, h3, h4, h5 {
 
 .text_button:hover {
   cursor: pointer;
+  opacity: 0.5;
 }
 
 
@@ -54,7 +58,10 @@ h1, h2, h3, h4, h5 {
 }
 
 
-#truncated_bio_wrap {
+#bio_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
   text-align: left;
   // max-width:300px;
   overflow: hidden;
@@ -66,7 +73,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .truncated {
-  max-height: 300px;
+  max-height: 500px;
   margin-top: 20px;
 }
 

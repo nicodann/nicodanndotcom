@@ -1,9 +1,10 @@
 import '../App.scss';
-import TruncatedBio from '../Components/TruncatedBio';
+// import TruncatedBio from '../Components/TruncatedBio';
 import useWindowDimensions from '../Hooks/useWindowWidth';
 import { useEffect, useState } from 'react';
-import Bio from '../Components/Bio';
+// import Bio from '../Components/Bio';
 import Calendar from '../Components/Calendar';
+import Bio from '../Components/Bio';
 
 
 export default function Home() {
@@ -23,7 +24,7 @@ export default function Home() {
             <h1>Nico Dann drums</h1>
         </header>
         {columnNumber === 1 &&
-          <TruncatedBio />
+          <Bio />
         }
         <Calendar />
       </div>

@@ -33,17 +33,20 @@ export default function CustomPDFDownloadLink({ markdown, fileName, buttonText }
       document={<PDFDocument markdown={markdown} />}
       fileName={fileName}
       style={{
-        marginTop: 20,
-        padding: "10px 15px",
-        backgroundColor: "#0070f3",
-        color: "white",
-        borderRadius: 4,
-        textDecoration: "none",
         display: "inline-block",
       }}
-    >
+      >
 
-      {({ loading }) => <span>{loading ? "Preparing PDF..." : buttonText ? buttonText : "Download PDF"}</span>}
+      {({ loading }) => <button style={{
+        backgroundColor: "#0070f3",
+        color: "white",
+        border: "none",
+        padding: "10px 15px",
+        fontSize: 16,
+        borderRadius: 4,
+        textDecoration: "none",
+
+      }}>{loading ? "Preparing PDF..." : buttonText ? buttonText : "Download PDF"}</button>}
     </PDFDownloadLink>
     
   )
