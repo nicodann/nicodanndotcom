@@ -6,11 +6,15 @@ const styles = StyleSheet.create({
   page: { padding: 30, fontSize: 12 },
   heading1: { fontSize: 24, marginBottom: 10 },
   heading2: { fontSize: 18, marginBottom: 8 },
-  paragraph: { marginBottom: 6, lineHeight: 1.5 },
+  paragraph: { 
+    marginBottom: 6, 
+    // lineHeight: 1.5 
+  },
 });
 
 export const BioPDF = ({ markdown }: { markdown: string }) => {
   const lines = markdown.split("\n");
+  console.log("Markdown lines for PDF:", markdown);
 
   return (
     <Document>

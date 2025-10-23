@@ -1,13 +1,14 @@
 import Markdown from "react-markdown";
-import bioSource from '../docs/Nico Dann Biography.md'
-import { useEffect, useState } from "react";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import { BioPDF } from "./bioPDF";
+import bioSource from '../docs/NicoDannDrums_Bio2025.md'
+import shortBioSource from '../docs/NicoDannDrums_ShortBio2025.md'
+import { useState } from "react";
+import CustomPDFDownloadLink from "./CustomPDFDownloadLink";
 
 
 
 export default function Bio() {
   const [bio, setBio] = useState<string>()
+  const [ shortBio, setShortBio ] = useState<string>()
 
   fetch(bioSource)
     .then(response => response.text())
@@ -15,25 +16,36 @@ export default function Bio() {
       setBio(text)
     })
 
+  fetch(shortBioSource)
+    .then(response => response.text())
+    .then(text => {
+      setShortBio(text)
+    })
+
   return (
     <div id="bio_wrap">
+
       <Markdown>{bio}</Markdown>
 
-      <PDFDownloadLink
-        document={<BioPDF markdown={bioSource} />}
-        fileName="NicoDann_Bio.pdf"
-        style={{
-          marginTop: 20,
-          padding: "10px 15px",
-          backgroundColor: "#0070f3",
-          color: "white",
-          borderRadius: 4,
-          textDecoration: "none",
-          display: "inline-block",
-        }}
-      >
-        {({ loading }) => (loading ? "Preparing PDF..." : "Download PDF")}
-      </PDFDownloadLink>
+      <div style={{display: 'flex', gap: '10px', flexWrap: 'wrap'}}>
+        {bio &&
+          <CustomPDFDownloadLink 
+            markdown={bio} 
+            buttonText="Download Full Bio" 
+            fileName="NicoDannDrums_Bio2025.pdf" 
+          />
+        }
+        {shortBio &&
+          <CustomPDFDownloadLink 
+            markdown={shortBio} 
+            buttonText="Download Short Bio" 
+            fileName="NicoDannDrums_ShortBio2025.pdf" 
+          />
+        }
+
+      </div>
+
+
     </div>
   )
 }

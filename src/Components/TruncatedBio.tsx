@@ -1,5 +1,5 @@
 import Markdown from "react-markdown";
-import bioSource from '../docs/Nico Dann Biography.md'
+import bioSource from '../docs/NicoDannDrums_Bio2025.md'
 import { useEffect, useState } from "react";
 
 
