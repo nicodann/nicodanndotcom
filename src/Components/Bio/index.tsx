@@ -1,7 +1,7 @@
 import Markdown from "react-markdown";
 import bioSource from '../../docs/NicoDannDrums_Bio2025.md'
 import shortBioSource from '../../docs/NicoDannDrums_ShortBio2025.md'
-import { useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import BioDownloadButtons from "./BioDownloadButtons";
 
 
@@ -14,7 +14,7 @@ export default function Bio() {
 
   useEffect(() => {
     isBioTruncated 
-      ? setDisplayedBio(fullBio?.substring(0,690) + '...')
+      ? setDisplayedBio(fullBio?.substring(0,1090) + '...')
       : setDisplayedBio(fullBio)
   }, [isBioTruncated, fullBio]);
 
@@ -31,18 +31,27 @@ export default function Bio() {
         setShortBio(text)
       })
 
-  const ExpandCollapseButton = () => (
+  const ExpandCollapseButton = ( { style }:{ style?: React.CSSProperties } ) => {
+    return (
     <p 
-      className="text_button" 
+      className="text_button"
       onClick={() => {
         isBioTruncated 
           ? setIsBioTruncated(false) 
           : setIsBioTruncated(true)
       }}
+      style={{
+            backgroundColor: 'white',
+            fontSize: '14px',
+            opacity: 0.8,
+            color: 'black',
+            padding: '3px 10px',
+            ...style
+      }}
     >
       {isBioTruncated ? 'expand' : 'collapse'}
     </p>
-  )
+  )}
 
   return (
     <div 
@@ -52,8 +61,14 @@ export default function Bio() {
         ${isBioTruncated ? "truncated" : "expanded"}
       `}
     >
-      {!isBioTruncated && <ExpandCollapseButton />}
       <div id="bio_markdown_wrap">
+      {!isBioTruncated && 
+        <ExpandCollapseButton 
+          style={{ 
+            position: 'absolute', top: 0, left: 0,
+          
+          }} 
+      />}
         <Markdown>{displayedBio}</Markdown>
         <ExpandCollapseButton />
       </div>

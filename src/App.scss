@@ -41,6 +41,7 @@ button:hover {
 #left_side_column {
   align-items: center;
   text-align: center;
+  justify-content: flex-start;
   margin:auto;
   display: flex;
   max-width: 400px;
@@ -60,21 +61,22 @@ button:hover {
 
 #bio_wrap {
   display: flex;
+  position: relative;
   flex-direction: column;
   gap: 40px;
   text-align: left;
-  // max-width:300px;
   overflow: hidden;
+  padding-top:30px;
 }
 
 .animated_height {
-  transition: max-height 1s ease-out;
+  transition: max-height 2s ease-in-out;
 
 }
 
 .truncated {
-  max-height: 500px;
-  margin-top: 20px;
+  max-height: 600px;
+  // margin-top: 20px;
 }
 
 .expanded {
@@ -84,9 +86,10 @@ button:hover {
 #right_side_column {
   display: flex;
   flex-direction: column;
-  padding: 3em 2em 2em 2em;
-  gap: 4em
+  padding: 0em 2em 0em 2em;
+  gap: 4em;
 }
+
 img {
   width: 100%;
 }
