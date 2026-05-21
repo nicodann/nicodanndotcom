@@ -1,3 +1,4 @@
+/// <reference types="gapi.client.calendar" />
 import sortEvents from "../lib/sortEvents";
 import { eventsStateType } from "../types/calendarTypes";
 import { gapi } from "gapi-script";
