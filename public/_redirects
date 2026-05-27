@@ -1,2 +1,3 @@
+/lessons/* https://nicodann-drumlessons.netlify.app/lessons/:splat 200!
 /lessons  https://nicodann-drumlessons.netlify.app/lessons  200!
 /*        /index.html  200
