@@ -6,6 +6,6 @@
 
   [[redirects]]
   from = "/lessons"
-  to = "https://nico-dann-lessons.netlify.app/"
+  to = "https://nicodann-drumlessons.netlify.app/"
   status = 200
   force = true
