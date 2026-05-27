@@ -1,11 +1,11 @@
 [[redirects]]
   from = "/lessons/*"
-  to = "https://nicodann-drumlessons.netlify.app/:splat"
+  to = "https://nicodann-drumlessons.netlify.app/lessons/:splat"
   status = 200
   force = true
 
   [[redirects]]
   from = "/lessons"
-  to = "https://nicodann-drumlessons.netlify.app/"
+  to = "https://nicodann-drumlessons.netlify.app/lessons/"
   status = 200
   force = true
