@@ -60,7 +60,9 @@ export default function Home() {
           <div className="left_side_column">
             <CalendarPast />
           </div>
-          <Bio />
+          <div className="right_side_column">
+            <Bio />
+          </div>
         </div>
       )}
     </div>
