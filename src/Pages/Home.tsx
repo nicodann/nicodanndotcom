@@ -1,39 +1,39 @@
-import '../App.scss';
+import "../App.scss";
 // import TruncatedBio from '../Components/TruncatedBio';
-import useWindowDimensions from '../Hooks/useWindowWidth';
-import { useEffect, useState } from 'react';
+import useWindowDimensions from "../Hooks/useWindowWidth";
+import { useEffect, useState } from "react";
 // import Bio from '../Components/Bio';
-import Calendar from '../Components/Calendar';
-import Bio from '../Components/Bio';
-
+import Calendar from "../Components/Calendar";
+import Bio from "../Components/Bio";
 
 export default function Home() {
   const windowSize = useWindowDimensions();
-  const [columnNumber, setColumnNumber] = useState<number>()
+  const [columnNumber, setColumnNumber] = useState<number>();
   useEffect(() => {
-    if (windowSize === 'base' || windowSize === 'sm') {
-      setColumnNumber(1)
+    if (windowSize === "base" || windowSize === "sm") {
+      setColumnNumber(1);
     } else {
-      setColumnNumber(2)
+      setColumnNumber(2);
     }
   }, [windowSize]);
   return (
     <div id="app_wrap">
       <div id="left_side_column">
-        <header id='main-app-heading'>
-            <h1>Nico Dann drums</h1>
+        <header id="main-app-heading">
+          <h1>Nico Dann drums</h1>
         </header>
-        {columnNumber === 1 &&
-          <Bio />
-        }
+        {columnNumber === 1 && <Bio />}
         <Calendar />
       </div>
-      {columnNumber === 2 &&
+      {columnNumber === 2 && (
         <div id="right_side_column">
-          <Bio />
           <img src="/images/nico_headshot.jpg" alt="Nico Dann jazz drums" />
+          <Bio />
+          <a href="https://lessons.nicodann.com">
+            {"➡️ Take drum lessons with Nico!"}
+          </a>
         </div>
-      }
+      )}
     </div>
-  )
+  );
 }
