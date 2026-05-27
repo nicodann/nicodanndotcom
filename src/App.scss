@@ -34,7 +34,7 @@ button:hover {
 }
 
 #app_wrap {
-  display: flex;
+  // display: flex;
   // font-family: 'Crimson Pro', serif;
   font-family: "Open Sans", sans-serif;
   color: white;
@@ -45,14 +45,24 @@ button:hover {
   margin-right: auto;
 }
 
-#left_side_column {
+#hero_section_wrap,
+#section_wrap {
+  display: flex;
+  justify-content: center;
+}
+
+#hero_section_wrap {
+  min-height: 100vh;
+}
+
+.left_side_column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
-  justify-content: flex-start;
-  margin: auto;
-  display: flex;
-  max-width: 400px;
-  flex-direction: column;
+  max-width: 1000px;
+  min-width: 300px;
 }
 
 #main-app-heading {
@@ -79,7 +89,7 @@ button:hover {
 }
 
 .truncated {
-  max-height: 600px;
+  max-height: 580px;
   // margin-top: 20px;
 }
 
@@ -87,7 +97,7 @@ button:hover {
   max-height: 3000px;
 }
 
-#right_side_column {
+.right_side_column {
   display: flex;
   flex-direction: column;
   padding: 3.5em 2em 0em 2em;
@@ -99,8 +109,33 @@ button:hover {
   }
 }
 
+#lessons_link {
+  text-align: right;
+}
+
 img {
   width: 100%;
+}
+
+#scroll_indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateX(-50%) translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
 }
 
 @media (min-width: 0px) {
@@ -108,6 +143,12 @@ img {
     h1 {
       min-width: 280px;
     }
+  }
+}
+
+@media (min-width: 800px) {
+  .left_side_column {
+    max-width: 300px;
   }
 }
 

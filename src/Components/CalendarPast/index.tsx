@@ -4,24 +4,14 @@ import YearBlock from "../YearBlock";
 import { useEvents } from "../../Hooks/useEvents";
 import { useState } from "react";
 
-function Calendar() {
+function CalendarPast() {
   const [pastEventDisplayLimit, setPastEventDisplayLimit] = useState(10);
 
-  const { upcomingEvents, passedEvents, upcomingYears, passedYears } =
-    useEvents(pastEventDisplayLimit);
+  const { passedEvents, passedYears } = useEvents(pastEventDisplayLimit);
 
   return (
     <div id="calendar">
-      <h3>Upcoming Gigs</h3>
-      {upcomingYears.length !== 0 && upcomingEvents ? (
-        <YearBlock events={upcomingEvents} years={upcomingYears} />
-      ) : (
-        <p style={{ fontStyle: "italic" }}>
-          Check back soon or join the mailing list!
-        </p>
-      )}
       <h3>Past Performances</h3>
-      {/* {passedYears.length !== 0 && passedEvents ? */}
       <YearBlock events={passedEvents} years={passedYears} />
 
       <p
@@ -31,9 +21,8 @@ function Calendar() {
       >
         display more...
       </p>
-      {/* } */}
     </div>
   );
 }
 
-export default Calendar;
+export default CalendarPast;
