@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/lessons/*"
+  to = "https://nicodann-drumlessons.netlify.app/:splat"
+  status = 200
+  force = true
