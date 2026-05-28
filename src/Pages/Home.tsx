@@ -26,9 +26,19 @@ export default function Home() {
             <h1>Nico Dann drums</h1>
           </header>
           {columnNumber === 1 ? (
-            <>
-              <Bio /> <Calendar />
-            </>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "4em",
+              }}
+            >
+              <Bio />
+              <a id="lessons_link" href="https://lessons.nicodann.com">
+                {"→ Take drum lessons with Nico!"}
+              </a>
+              <Calendar />
+            </div>
           ) : (
             <CalendarUpcoming />
           )}
